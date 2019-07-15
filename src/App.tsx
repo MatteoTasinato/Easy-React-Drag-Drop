@@ -1,58 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Chessboard from './chessboard'
 import './App.css';
 
-interface AppInfo {
-  showEnumeration: boolean
-  numberOfCells: number
-}
+const App = () => {
+  const [showEnumeration, setShowEnumerator] = useState(false)
+  const [numberOfCells, setNumberOfCells] = useState(81)
 
-export default class App extends React.Component<any, AppInfo> {
-
-  constructor(props: any) {
-    super(props)
-    this.state = {
-      showEnumeration: false,
-      numberOfCells: 81
+  const changeValue = (numberOfCells: number): void => {
+    if (numberOfCells) {
+      setNumberOfCells(numberOfCells)
     }
   }
 
-  changeValue = () => {
-    this.setState({ showEnumeration: !this.state.showEnumeration })
+  const toggleShowEnumerator = (): void => {
+    setShowEnumerator(prev => !prev)
   }
 
-  changenumberOfCells = (numberOfCells: number) => {
-    this.setState({ numberOfCells })
-  }
-
-  render() {
-    return (<div >
-      <div className='toolbar'>
-        DEMO
+  return (<div >
+    <div className='toolbar'>
+      DEMO
     </div>
-      <div className='demo'>
-        <div className='leftArea'>
-          <h2>DEMO PANEL</h2>
-          <input
-            type='checkbox'
-            checked={this.state.showEnumeration}
-            onChange={this.changeValue} /> Show cell's Enumeration
-              <input
-            type='number'
-            value={this.state.numberOfCells}
-            onChange={event => this.changenumberOfCells(Number(event.target.value))} /> Number of Cells
+    <div className='demo'>
+      <div className='leftArea'>
+        <h2>DEMO PANEL</h2>
+        <input
+          type='checkbox'
+          checked={showEnumeration}
+          onChange={toggleShowEnumerator}
+        /> Show cell's Enumeration
+        <input type='number' onChange={event => changeValue(event.currentTarget.valueAsNumber)} /> Number of Cells
       </div>
-        <div className='rightArea'>
-          <Chessboard
-            numberOfCells={this.state.numberOfCells}
-            showCellCounting={this.state.showEnumeration}
-            monsters={[]}
-            setMonsterPosition={() => 3}
-            setMonsterSelected={() => { }}
-            monsterSelected={() => { }}
-          />
-        </div>
+      <div className='rightArea'>
+        <Chessboard
+          numberOfCells={numberOfCells}
+          showCellCounting={showEnumeration}
+          monsters={[]}
+          setMonsterPosition={() => 3}
+          setMonsterSelected={() => { }}
+          monsterSelected={() => { }}
+        />
       </div>
-    </div>)
-  }
+    </div>
+  </div>)
 }
+
+export default App
