@@ -1,14 +1,32 @@
-import React, { useState } from "react";
-import Chessboard from "../chessboard";
-import "./App.css";
+import React, { useState } from "react"
+import { ChessboardContainer } from "../components/Chessboard"
+import "../styles/App.css"
 
 const App = () => {
-  const [showEnumeration, setShowEnumerator] = useState(false);
-  const [numberOfCells, setNumberOfCells] = useState(8);
+  const [numberOfCells, setNumberOfCells] = useState(4)
+  const [showEnumeration, setShowEnumerator] = useState(false)
+  const [piecesMap, setPiecesMap] = useState([
+    { position: 3, symbol: "C", key: "kight" }
+  ])
 
   const toggleShowEnumerator = (): void => {
-    setShowEnumerator(prev => !prev);
-  };
+    setShowEnumerator(prev => !prev)
+  }
+
+  const onChangeNumberOfCells = e => {
+    setNumberOfCells(Number.parseFloat(e.currentTarget.value))
+  }
+
+  const onPiecesMapChanges = newMap => {
+    setPiecesMap(newMap)
+  }
+
+  const createRandomPiece = () => {
+    setPiecesMap([
+      ...piecesMap,
+      { key: `Duck ${piecesMap.length}`, position: 0, symbol: ":<" }
+    ])
+  }
 
   return (
     <div>
@@ -22,31 +40,57 @@ const App = () => {
               checked={showEnumeration}
               onChange={toggleShowEnumerator}
             />
-            Show cell's Enumeration
+            show cell enumerator
           </div>
           <br />
           <div>
-            <input
-              type="number"
-              value={numberOfCells}
-              onChange={event => setNumberOfCells(event.currentTarget.valueAsNumber)}
-            />
-            Side size
+            <select onChange={onChangeNumberOfCells}>
+              <option value="4">4</option>
+              <option value="8">8 (standard)</option>
+              <option value="16">16</option>
+              <option value="20">20</option>
+              <option value="60">60</option>
+            </select>
+          </div>
+          <br />
+          <div>
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Symbol</th>
+                  <th>Position</th>
+                </tr>
+              </thead>
+              <tbody>
+                {piecesMap.map(piece => (
+                  <tr>
+                    <td>{piece.key}</td>
+                    <td>{piece.symbol}</td>
+                    <td>{piece.position}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            <button
+              style={{ padding: 4, fontSize: 12, marginTop: 6 }}
+              onClick={createRandomPiece}
+            >
+              Add a piece
+            </button>
           </div>
         </div>
         <div className="rightArea">
-          <Chessboard
+          <ChessboardContainer
             numberOfCells={numberOfCells}
-            showCellCounting={showEnumeration}
-            monsters={[]}
-            setMonsterPosition={() => 3}
-            setMonsterSelected={() => {}}
-            monsterSelected={() => {}}
+            showKey={showEnumeration}
+            piecesMap={piecesMap}
+            onPiecesMapChanges={onPiecesMapChanges}
           />
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default App;
+export default App

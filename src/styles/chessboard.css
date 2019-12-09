@@ -1,0 +1,7 @@
+.chessboard {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: red;
+  overflow: auto;
+  border: solid;
+}
