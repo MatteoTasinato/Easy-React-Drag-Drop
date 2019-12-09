@@ -1,3 +1,3 @@
-This project is a test about React and html5 native Drag n Drop.
+A chessboard implemented using React and HTML5 Drag n Drop.
 
-commnad: npm start
+How to run: npm start
