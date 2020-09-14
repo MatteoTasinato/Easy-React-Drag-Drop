@@ -1,5 +1,5 @@
 import * as React from "react"
-import Piece, { PieceValue } from "./Piece"
+import { Piece, PieceValue } from "./Piece"
 import "../styles/square.css"
 import { onDragOver, onDrop } from "../helper/dragAndDropHelper"
 import ChessboardContext from "../ChessboardContext"
@@ -12,19 +12,19 @@ interface SquareProps {
   position: number
 }
 
-const getPieceMap = (piecesMap: PieceValue[], number: number) => {
-  const piece = piecesMap.find(p => p.position === number)
+const getPieceMap = (piecesMap: PieceValue[], position: number) => {
+  const piece = piecesMap.find(p => p.position === position)
   if (!piece) {
     return null
   }
-  return <Piece piece={piece}></Piece>
+  return <Piece piece={piece} />
 }
 
 export const Square = ({ position, backgroundColor }: SquareProps) => {
   const { showKey, piecesMap, onPiecesMapChanges } = useContext(
     ChessboardContext
   )
-  const piece = useCallback(() => getPieceMap(piecesMap, position), [piecesMap])
+  const piece = useCallback(() => getPieceMap(piecesMap, position), [getPieceMap, piecesMap, position])
 
   return (
     <div

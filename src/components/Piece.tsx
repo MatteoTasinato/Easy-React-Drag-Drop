@@ -13,7 +13,7 @@ interface PieceProps {
   piece: PieceValue
 }
 
-const Piece = ({ piece, ...props }: PieceProps) => {
+export const Piece = ({ piece, ...props }: PieceProps) => {
   const onDragStartCallback: DragEventHandler<HTMLDivElement> = useCallback(
     event => {
       onDragStart(event, piece)
@@ -28,9 +28,7 @@ const Piece = ({ piece, ...props }: PieceProps) => {
       draggable
       onDragStart={onDragStartCallback}
     >
-      <div> {piece.symbol}</div>
+      <div>{piece.symbol}</div>
     </div>
   )
 }
-
-export default Piece
