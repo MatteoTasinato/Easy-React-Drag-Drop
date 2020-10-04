@@ -1,6 +1,6 @@
 import { createContext } from "react"
 import { DEFAULT_CELL_NUMBER } from "./constants"
-import { PieceValue } from "./components/Piece"
+import { PieceValue } from "./components/DraggableElement"
 
 interface ChessboardContextValue {
   showKey?: boolean
@@ -13,7 +13,7 @@ const ChessboardContext = createContext<ChessboardContextValue>({
   showKey: true,
   numberOfCells: DEFAULT_CELL_NUMBER,
   piecesMap: [],
-  onPiecesMapChanges: () => {}
+  onPiecesMapChanges: () => { }
 })
 
 export default ChessboardContext

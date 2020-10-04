@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { ChessboardContainer } from "../components/Chessboard"
+import { ChessboardContainer } from "../components/Board"
 import "../styles/App.css"
 
 const App = () => {
