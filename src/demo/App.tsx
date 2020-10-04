@@ -1,12 +1,13 @@
 import React, { useState } from "react"
-import { ChessboardContainer } from "../components/Board"
+import { Chessboard } from "./Chessboard"
 import "../styles/App.css"
+import { DraggableElement } from "../components/DraggableElement"
 
 const App = () => {
   const [numberOfCells, setNumberOfCells] = useState(4)
   const [showEnumeration, setShowEnumerator] = useState(false)
-  const [piecesMap, setPiecesMap] = useState([
-    { position: 3, symbol: "C", key: "kight" }
+  const [piecesMap, setPiecesMap] = useState<DraggableElement[]>([
+    { position: 3, image: "C", key: "knight" }
   ])
 
   const toggleShowEnumerator = (): void => {
@@ -24,7 +25,7 @@ const App = () => {
   const createRandomPiece = () => {
     setPiecesMap([
       ...piecesMap,
-      { key: `Duck ${piecesMap.length}`, position: 0, symbol: ":<" }
+      { key: `Duck ${piecesMap.length}`, position: 0, image: ":<" }
     ])
   }
 
@@ -64,9 +65,9 @@ const App = () => {
               </thead>
               <tbody>
                 {piecesMap.map(piece => (
-                  <tr>
+                  <tr key={piece.key}>
                     <td>{piece.key}</td>
-                    <td>{piece.symbol}</td>
+                    <td>{piece.image}</td>
                     <td>{piece.position}</td>
                   </tr>
                 ))}
@@ -81,7 +82,7 @@ const App = () => {
           </div>
         </div>
         <div className="rightArea">
-          <ChessboardContainer
+          <Chessboard
             numberOfCells={numberOfCells}
             showKey={showEnumeration}
             piecesMap={piecesMap}

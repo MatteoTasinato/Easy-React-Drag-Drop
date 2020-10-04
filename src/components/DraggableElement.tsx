@@ -37,7 +37,9 @@ export const onDragStart = (
   event: DragEvent<HTMLDivElement>,
   data?: DraggableElement
 ): void => {
+  console.log(event)
+  console.log(data)
   if (data && event.dataTransfer) {
-    event.dataTransfer.setData("id", data.key)
+    event.dataTransfer.setData("key", data.key)
   }
 }
