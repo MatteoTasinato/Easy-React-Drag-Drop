@@ -1,3 +1,1 @@
-A chessboard implemented using React and HTML5 Drag n Drop.
-
-How to run: npm start
+Educational project to show how to implement a simple and clear dNd library in ReactJS.

@@ -1,0 +1,23 @@
+div {
+    margin: 20px;
+}
+
+.red-box {
+    background-color: red;
+    width: 100px;
+    height: 100px;
+}
+
+.ball {
+    width: 60px;
+    height: 60px;
+    border-radius: 50px;
+}
+
+.blue-ball {
+    background-color: blue;
+}
+
+.green-ball {
+    background-color: green;
+}
