@@ -1,20 +1,26 @@
 import * as React from "react"
-import { getBoxAbility, getDraggableAbility } from "./dnd"
+import { createBoxAbility, createDraggableAbility } from "./dragAndDropHelpers"
 import "./styles/styles.css"
 
 const App = () => {
-  const boxAbility = getBoxAbility((dataKey) => console.log(dataKey))
-  const draggableAbility = getDraggableAbility("dataKey-1")
+  const boxAbility = createBoxAbility((sign) => console.log(sign))
+  const draggableAbility = createDraggableAbility("Babe Ruth")
 
   return (
     <>
-      <h1>React hooks examples</h1>
-      <div {...boxAbility} className="red-box"></div>
-      <div {...draggableAbility} className="ball blue-ball"></div>
+      <h3>React hooks examples</h3>
+      <div {...boxAbility} className="red-box" />
+      <div {...draggableAbility} className="ball blue-ball" />
 
-      <DraggableComponent dataKey="dataKey-2">
+
+      <h3>React components examples</h3>
+      <DraggableComponent sign="Joe DiMaggio">
         <div className="ball green-ball" />
       </DraggableComponent>
+
+      <BoxComponent onDrop={(sign: string) => console.log(sign)}>
+        <div className="box" />
+      </BoxComponent>
     </>
   )
 }
@@ -22,7 +28,13 @@ const App = () => {
 export default App
 
 // Example of your component
-const DraggableComponent = ({ dataKey, children }) => {
-  const draggableAbility = getDraggableAbility(dataKey)
+const DraggableComponent = ({ sign, children }) => {
+  const draggableAbility = createDraggableAbility(sign)
   return <div {...draggableAbility}>{children}</div>
+}
+
+// Example of your component
+const BoxComponent = ({ onDrop, children }) => {
+  const boxAbility = createBoxAbility(onDrop)
+  return <div {...boxAbility}>{children}</div>
 }

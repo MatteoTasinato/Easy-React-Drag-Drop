@@ -8,29 +8,23 @@ const disableNativeDragOverEvent: React.DragEventHandler<HTMLElement> = (
   event.preventDefault()
 }
 
-export const getBoxAbility = (
+export const createBoxAbility = (
   onDropCallback: OnDropCallback
 ): Partial<React.HTMLAttributes<HTMLElement>> => {
 
-  const onDrop: React.DragEventHandler<HTMLElement> = ({
-    dataTransfer,
-  }): void => {
-    const dataKey = dataTransfer?.getData("dataKey")
-    if (dataKey) {
-      onDropCallback(dataKey)
+  const onDrop: React.DragEventHandler<HTMLElement> = ({ dataTransfer }): void => {
+    const sign = dataTransfer?.getData("sign")
+    if (sign) {
+      onDropCallback(sign)
     }
   }
 
   return { onDragOver: disableNativeDragOverEvent, onDrop }
 }
 
-export const getDraggableAbility = (
-  dataKey: string
-): Partial<React.HTMLAttributes<HTMLElement>> => ({
+export const createDraggableAbility = (sign: string): Partial<React.HTMLAttributes<HTMLElement>> => ({
   draggable: true,
   onDragStart: ({ dataTransfer }) => {
-    if (dataKey && dataTransfer) {
-      dataTransfer.setData("dataKey", dataKey)
-    }
+    dataTransfer?.setData("sign", sign)
   },
 })
